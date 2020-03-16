@@ -11,23 +11,24 @@ public class Fibonacci {
 
     /**
      * 采用递归实现-效率低-复杂度高(O(2^n))
+     *
      * @param n
      * @return
      */
     public static int fib1(int n) {
-        if(n <= 1) {
+        if (n <= 1) {
             return n;
         }
         return fib1(n - 1) + fib1(n - 2);
     }
 
     public static int fib2(int n) {
-        if(n <= 1) {
+        if (n <= 1) {
             return n;
         }
         int first = 0;
         int second = 1;
-        for(int i = 2; i <= n; i++) {
+        for (int i = 2; i <= n; i++) {
             int sum = first + second;
             first = second;
             second = sum;
@@ -37,6 +38,7 @@ public class Fibonacci {
 
     /**
      * 非递归实现-效率高-复杂度低(O(n))
+     *
      * @param args
      */
     public static void main(String[] args) {
