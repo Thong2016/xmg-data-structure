@@ -82,6 +82,11 @@ public class ArrayList<E> implements List<E> {
         rangeCheckForAdd(index);
         ensureCapacity(size + 1);
 
+        for(int i = size - 1; i >= index; i++) {
+            elements[i + 1] = elements[i];
+        }
+        elements[index] = element;
+        size++;
     }
 
     private void ensureCapacity(int capacity) {
@@ -123,5 +128,20 @@ public class ArrayList<E> implements List<E> {
             elements[i] = null;
         }
         size = 0;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("size = ").append(size).append(",[");
+        for(int i = 0; i < size; i++) {
+            if(i == 0) {
+                sb.append(elements[i]);
+            } else {
+                sb.append(",").append(elements[i]);
+            }
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }
