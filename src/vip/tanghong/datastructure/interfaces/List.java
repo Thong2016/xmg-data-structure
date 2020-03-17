@@ -1,6 +1,7 @@
 package vip.tanghong.datastructure.interfaces;
 
 public interface List<E> {
+    int ELEMENT_NOT_FOUND = -1;
 
     int size();
 

@@ -1,14 +1,9 @@
 package vip.tanghong.datastructure.array;
 
-import vip.tanghong.datastructure.interfaces.List;
+import vip.tanghong.datastructure.linked.AbstractList;
 
-public class ArrayList<E> implements List<E> {
-    //元素数量
-    private int size;
-
+public class ArrayList<E> extends AbstractList<E> {
     private E[] elements;
-
-    private static final int ELEMENT_NOT_FOUND = -1;
 
     private static final int DEFAULT_CAPACITY = 10;
 
@@ -22,31 +17,9 @@ public class ArrayList<E> implements List<E> {
     }
 
     @Override
-    public int size() {
-        return size;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    @Override
     public E get(int index) {
         rangeCheck(index);
         return elements[index];
-    }
-
-    private void rangeCheck(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(index + " is out of bounds.");
-        }
-    }
-
-    private void rangeCheckForAdd(int index) {
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException(index + " is out of bounds.");
-        }
     }
 
     @Override
@@ -68,21 +41,11 @@ public class ArrayList<E> implements List<E> {
     }
 
     @Override
-    public boolean contains(E element) {
-        return indexOf(element) != ELEMENT_NOT_FOUND;
-    }
-
-    @Override
-    public void add(E element) {
-        add(size, element);
-    }
-
-    @Override
     public void add(int index, E element) {
         rangeCheckForAdd(index);
         ensureCapacity(size + 1);
 
-        for(int i = size - 1; i >= index; i++) {
+        for (int i = size - 1; i >= index; i--) {
             elements[i + 1] = elements[i];
         }
         elements[index] = element;
@@ -134,8 +97,8 @@ public class ArrayList<E> implements List<E> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("size = ").append(size).append(",[");
-        for(int i = 0; i < size; i++) {
-            if(i == 0) {
+        for (int i = 0; i < size; i++) {
+            if (i == 0) {
                 sb.append(elements[i]);
             } else {
                 sb.append(",").append(elements[i]);
