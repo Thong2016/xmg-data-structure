@@ -48,7 +48,7 @@ public class LinkedList<E> extends AbstractList<E> {
         rangeCheckForAdd(index);
 
         if(index == 0) {
-            first = new Node<>(element, first.next);
+            first = new Node<>(element, first);
         }else {
             Node<E> prev = node(index - 1);
             prev.next = new Node<>(element, prev.next);
@@ -58,8 +58,6 @@ public class LinkedList<E> extends AbstractList<E> {
 
     @Override
     public E set(int index, E element) {
-        rangeCheck(index);
-
         Node<E> node = node(index);
         E old = node.element;
         node.element = element;
@@ -108,8 +106,8 @@ public class LinkedList<E> extends AbstractList<E> {
                 sb.append(node.element);
             } else {
                 sb.append(",").append(node.element);
-                node = node.next;
             }
+            node = node.next;
         }
         sb.append("]");
         return sb.toString();
