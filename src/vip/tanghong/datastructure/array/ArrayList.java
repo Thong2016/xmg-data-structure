@@ -80,7 +80,26 @@ public class ArrayList<E> extends AbstractList<E> {
             elements[i - 1] = elements[i];
         }
         elements[--size] = null;
+
+        //缩容
+        trim();
+
         return removeElement;
+    }
+
+    private void trim() {
+        int oldCapacity = elements.length;
+        int newCapacity = oldCapacity >> 2;
+
+        if (size > newCapacity || oldCapacity <= DEFAULT_CAPACITY) {
+            return;
+        }
+        E[] newElements = (E[]) new Object[newCapacity];
+        for (int i = 0; i < size; i++) {
+            newElements[i] = elements[i];
+        }
+        elements = newElements;
+        System.out.println(oldCapacity + "缩容为" + newCapacity);
     }
 
     @Override
