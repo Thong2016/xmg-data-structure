@@ -2,12 +2,15 @@ package vip.tanghong.datastructure.linked;
 
 /**
  * 约瑟夫环
+ *
  * @param <E>
  */
 public class Joseph<E> extends AbstractList<E> {
     private Node<E> first;
 
     private Node<E> last;
+
+    private Node<E> current;
 
     private class Node<E> {
         Node<E> prev;
@@ -42,6 +45,18 @@ public class Joseph<E> extends AbstractList<E> {
             }
             return sb.toString();
         }
+    }
+
+    public void reset() {
+        current = first;
+    }
+
+    public E next() {
+        if (current == null) {
+            return null;
+        }
+        current = current.next;
+        return current.element;
     }
 
     @Override
@@ -107,23 +122,39 @@ public class Joseph<E> extends AbstractList<E> {
         return old;
     }
 
+    public E remove() {
+        if (current == null) {
+            return null;
+        }
+        Node<E> next = current.next;
+        E element = remove(current);
+        if (size == 0) {
+            current = null;
+        } else {
+            current = next;
+        }
+        return element;
+    }
+
     @Override
     public E remove(int index) {
         rangeCheck(index);
+        return remove(node(index));
+    }
 
-        Node<E> node = node(index);
+    private E remove(Node<E> node) {
         if (size == 1) {
             first = last = null;
-        }else {
+        } else {
             Node<E> prev = node.prev;
             Node<E> next = node.next;
             prev.next = next;
             next.prev = prev;
 
-            if(node == first) {
+            if (node == first) {
                 first = next;
             }
-            if(node == last) {
+            if (node == last) {
                 last = prev;
             }
         }
